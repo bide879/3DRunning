@@ -32,7 +32,7 @@ public class EnemySpawner : MonoBehaviour
         //obj.name = $"Enemy_{spawnCounter}"; // 게임 오브젝트 이름 바꾸기
         //spawnCounter++;
 
-        ///Factory.Instance.GetBigTrash(GetSpawnPosition());
+        Factory.Instance.GetBigTrash(GetSpawnPosition());
         //Wave enemy = Factory.Instance.GetEnemyWave(GetSpawnPosition());
         //enemy.transform.SetParent(transform);
     }

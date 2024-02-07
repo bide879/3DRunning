@@ -67,7 +67,7 @@ public class Factory : Singleton<Factory>
     /// </summary>
     /// <param name="position">배치될 위치</param>
     /// <returns>활성화된 총알</returns>
-    public BigTrash GetBigTrashh(Vector3 position, float angle = 0.0f)
+    public BigTrash GetBigTrash(Vector3 position, float angle = 0.0f)
     {
         return bigtrash.GetObject(position, angle * Vector3.forward);
     }

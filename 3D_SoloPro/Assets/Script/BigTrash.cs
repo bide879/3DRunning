@@ -10,12 +10,24 @@ public class BigTrash : RecycleObject
     /// </summary>
     public float scrollingSpeed = 2.5f;
 
-    private void Update()
+    /// <summary>
+    /// ¼ö¸í
+    /// </summary>
+    public float lifeTime = 10.0f;
+
+
+    private void FixedUpdate()
     {
         Move();
     }
 
-    void Move()
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        StartCoroutine(LifeOver(lifeTime));
+    }
+
+        void Move()
     {
         transform.Translate(0, 0, Time.fixedDeltaTime * -scrollingSpeed);
     }

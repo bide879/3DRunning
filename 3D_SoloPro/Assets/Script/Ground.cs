@@ -10,13 +10,16 @@ public class Ground : MonoBehaviour
     /// </summary>
     public float scrollingSpeed = 2.5f;
 
+    
     private void Update()
     {
         Move();
+        
     }
 
     void Move()
     {
         transform.Translate(0, 0, Time.fixedDeltaTime * -scrollingSpeed);
+
     }
 }

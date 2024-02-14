@@ -15,12 +15,27 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 이동 방향(1 : 전진, -1 : 후진, 0 : 정지)
     /// </summary>
-    float moveDirection = 0.0f;
+    float moveDirectionFB = 0.0f;
 
     /// <summary>
-    /// 이동 속도
+    /// 이동 방향(1 : 전진, -1 : 후진, 0 : 정지)
     /// </summary>
-    public float moveSpeed = 5.0f;
+    float moveDirectionRL = 0.0f;
+
+    /// <summary>
+    /// 앞뒤 이동 속도
+    /// </summary>
+    public float moveFBSpeed = 9.0f;
+
+    /// <summary>
+    /// 좌우 이동 속도
+    /// </summary>
+    public float moveRLSpeed = 5.0f;
+
+    /// <summary>
+    /// 뒤로 밀리는 속도
+    /// </summary>
+    public float moveBack = 5.0f;
 
     /// <summary>
     /// 점프력
@@ -105,6 +120,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        rigid.MovePosition(rigid.position + Time.fixedDeltaTime * moveBack * -transform.forward);
         Move();
     }
 
@@ -129,7 +145,8 @@ public class Player : MonoBehaviour
     /// <param name="isMove">이동 중이면 true, 이동 중이 아니면 false</param>
     void SetInput(Vector2 input, bool isMove)
     {
-        moveDirection = input.x;
+        moveDirectionRL = input.x;
+        moveDirectionFB = input.y;
         animator.SetBool(IsMoveHash, isMove);
         //animator.SetBool(IsMoveHash, isMove);
     }
@@ -139,7 +156,9 @@ public class Player : MonoBehaviour
     /// </summary>
     void Move()
     {
-        rigid.MovePosition(rigid.position + Time.fixedDeltaTime * moveSpeed * moveDirection * transform.right);
+        rigid.MovePosition(rigid.position + Time.fixedDeltaTime * moveFBSpeed * moveDirectionFB * transform.forward);
+
+        rigid.MovePosition(rigid.position + Time.fixedDeltaTime * moveRLSpeed * moveDirectionRL * transform.right);
     }
 
     /// <summary>

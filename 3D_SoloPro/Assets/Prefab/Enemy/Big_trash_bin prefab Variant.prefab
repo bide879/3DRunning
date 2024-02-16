@@ -20,9 +20,25 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8908511305683675425, guid: f3426fd0ac6604b46a10c09c2f59eb0b, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8908775953483164291, guid: f3426fd0ac6604b46a10c09c2f59eb0b, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 8908798662984386935, guid: f3426fd0ac6604b46a10c09c2f59eb0b, type: 3}
       propertyPath: m_Name
       value: Big_trash_bin prefab Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 8908798662984386935, guid: f3426fd0ac6604b46a10c09c2f59eb0b, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8908896442730073811, guid: f3426fd0ac6604b46a10c09c2f59eb0b, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8910710440616574351, guid: f3426fd0ac6604b46a10c09c2f59eb0b, type: 3}
       propertyPath: m_LocalRotation.w

@@ -7,13 +7,15 @@ using UnityEngine;
 /// </summary>
 public enum PoolObjectType
 {
-    Bigtrash
+    Bigtrash,
+    LightPlane
 }
 
 public class Factory : Singleton<Factory>
 {
     // 오브젝트 풀들
     BigTrashPool bigtrash;
+    LightPlanePool lightPlane;
 
     /// <summary>
     /// 씬이 로딩 완료될 때마다 실행되는 초기화 함수
@@ -30,7 +32,11 @@ public class Factory : Singleton<Factory>
         if(bigtrash != null)
             bigtrash.Initialize();
 
-       
+        lightPlane = GetComponentInChildren<LightPlanePool>();
+        if (lightPlane != null)
+            lightPlane.Initialize();
+
+
     }
 
     /// <summary>
@@ -48,6 +54,9 @@ public class Factory : Singleton<Factory>
             case PoolObjectType.Bigtrash:
                 result = bigtrash.GetObject(position, euler).gameObject;
                 break;
+            case PoolObjectType.LightPlane:
+                result = lightPlane.GetObject(position, euler).gameObject;
+                break;
         }
 
         return result;
@@ -61,7 +70,6 @@ public class Factory : Singleton<Factory>
     {
         return bigtrash.GetObject();
     }
-
     /// <summary>
     /// 총알 하나 가져와서 특정 위치에 배치하는 함수
     /// </summary>
@@ -72,6 +80,13 @@ public class Factory : Singleton<Factory>
         return bigtrash.GetObject(position, angle * Vector3.forward);
     }
 
-  
+    public LightPlane GetLightPlane()
+    {
+        return lightPlane.GetObject();
+    }
+    public LightPlane GetLightPlane(Vector3 position, float angle = 0.0f)
+    {
+        return lightPlane.GetObject(position, angle * Vector3.forward);
+    }
 
 }

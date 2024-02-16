@@ -44,4 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a431ccbe8aaf684086e82ac98f64dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interval: 3
+  bigTrashInterval: 0.7
+  lightPlaneInterval: 1.2

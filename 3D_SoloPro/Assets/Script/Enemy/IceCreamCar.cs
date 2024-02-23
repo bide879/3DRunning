@@ -7,8 +7,11 @@ public class IceCreamCar : MonoBehaviour
     /// <summary>
     /// 이동 속도
     /// </summary>
-    public float speed = -0.5f;
-
+    public float speed = 0.2f;
+    /// <summary>
+    /// 이동 속도
+    /// </summary>
+    public float speedRL = 3.0f;
     private void FixedUpdate()
     {
         Move();
@@ -16,7 +19,7 @@ public class IceCreamCar : MonoBehaviour
 
     void Move()
     {
-        if (transform.position.z < 7.5)
+        if (transform.position.z < 7.5f)
         {
             speed = -speed;
         }
@@ -24,6 +27,16 @@ public class IceCreamCar : MonoBehaviour
         {
             speed = -speed;
         }
-        transform.Translate(0, 0, Time.fixedDeltaTime * speed);
+
+        if (transform.position.x < -8.0f)
+        {
+            speedRL = -speedRL;
+        }
+        else if (transform.position.x > -0.5f)
+        {
+            speedRL = -speedRL;
+        }
+        transform.Translate(Time.fixedDeltaTime * speedRL, 0, Time.fixedDeltaTime * speed);
+
     }
 }

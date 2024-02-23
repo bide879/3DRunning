@@ -110,7 +110,7 @@ Transform:
   m_GameObject: {fileID: 742713002573734393}
   serializedVersion: 2
   m_LocalRotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0.02}
   m_LocalScale: {x: 2.54, y: 2.54, z: 2.54}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -176,6 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7085575235887719595}
   - component: {fileID: 838753689180818699}
+  - component: {fileID: 4113249592453995151}
   m_Layer: 9
   m_Name: Ice Cream Car
   m_TagString: Enemy
@@ -224,6 +225,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4113249592453995151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2236107043721695603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fa1de7642d422445a69416d532a0151, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.2
+  speedRL: 3
 --- !u!1 &5778995413805701896
 GameObject:
   m_ObjectHideFlags: 0

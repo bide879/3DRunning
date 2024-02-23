@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,30 @@ public class GameManager : Singleton<GameManager>
     {
         base.OnInitialize();
         player = FindAnyObjectByType<Player>();
+    }
+
+    bool isSpeedUp = false;
+
+    public Action onSpeedUp;
+    public void SpeedUp()
+    {
+        if (!isSpeedUp)
+        {
+            onSpeedUp?.Invoke();
+            isSpeedUp = true;
+            Debug.Log("게임매니저 SpeedUp");
+        }
+    }
+
+    public Action onSpeedUpEnd;
+    public void SpeedUpEnd()
+    {
+        if (isSpeedUp)
+        {
+            onSpeedUpEnd?.Invoke();
+            isSpeedUp = false;
+            Debug.Log("게임매니저 SpeedUpEnd");
+        }
     }
 
 }

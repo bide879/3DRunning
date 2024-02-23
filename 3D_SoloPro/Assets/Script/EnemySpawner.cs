@@ -19,16 +19,25 @@ public class EnemySpawner : MonoBehaviour
     IEnumerator SpawnBigTrashCoroutine()
     {
         int bigTrashCount = 0;
+        int iceCreamCount = 0;
         while (true) // 무한 반복
         {
             yield return new WaitForSeconds(bigTrashInterval);  // interval만큼 기다린 후
-            SpawnBigTrash();
+            //SpawnBigTrash();
+            SpawnIceCream();
             bigTrashCount++;
             if (bigTrashCount > 2) 
             {
                 yield return new WaitForSeconds(lightPlaneInterval);
-                SpawnLightPlane();
+                //SpawnLightPlane();
                 bigTrashCount = 0;
+                iceCreamCount++;
+                if (iceCreamCount > 1)
+                {
+                    SpawnIceCream();
+                    iceCreamCount = 0;
+                }
+
             }
                  
         }
@@ -43,6 +52,11 @@ public class EnemySpawner : MonoBehaviour
     protected virtual void SpawnLightPlane()
     {
         Factory.Instance.GetLightPlane(GetSpawnPosition());
+    }
+
+    protected virtual void SpawnIceCream()
+    {
+        Factory.Instance.GetIceCream(GetSpawnPosition());
     }
 
     /// <summary>

@@ -1,16 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.XR;
+
 
 public class Player : MonoBehaviour
 {
     PlayerInputActions inputActions;
     Rigidbody rigid;
     Animator animator;
+
+    public bool getItem = false;
+
+    public Action<bool> speedUp;
+
 
     /// <summary>
     /// 이동 방향(1 : 전진, -1 : 후진, 0 : 정지)
@@ -64,6 +68,7 @@ public class Player : MonoBehaviour
 
     readonly int IsMoveHash = Animator.StringToHash("IsMove");
     readonly int IsJump = Animator.StringToHash("Jump");
+    readonly int IsDash = Animator.StringToHash("Dash");
     readonly int DieHash = Animator.StringToHash("Die");
 
     /// <summary>
@@ -73,11 +78,27 @@ public class Player : MonoBehaviour
 
     public Action onDie;
 
+    /// <summary>
+    /// 아이템 쿨 타임
+    /// </summary>
+    public float itemCoolTime = 5.0f;
+
+    /// <summary>
+    /// 아이템 남아있는 쿨타임
+    /// </summary>
+    float itemCoolRemains = -1.0f;
+
     private void Awake()
     {
         inputActions = new();
         rigid = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
+        GameManager.Instance.onSpeedUp += Dash;
+        GameManager.Instance.onSpeedUpEnd += DashEnd;
     }
 
     private void OnEnable()
@@ -86,12 +107,10 @@ public class Player : MonoBehaviour
         inputActions.Player.Move.performed += OnMoveInput;
         inputActions.Player.Move.canceled += OnMoveInput;
         inputActions.Player.Jump.performed += OnJumpInput;
-        inputActions.Player.Use.performed += OnUseInput;
     }
 
     private void OnDisable()
     {
-        inputActions.Player.Use.performed -= OnUseInput;
         inputActions.Player.Jump.performed -= OnJumpInput;
         inputActions.Player.Move.canceled -= OnMoveInput;
         inputActions.Player.Move.performed -= OnMoveInput;
@@ -108,14 +127,16 @@ public class Player : MonoBehaviour
         Jump();
     }
 
-    private void OnUseInput(InputAction.CallbackContext context)
-    {
-        //animator.SetTrigger(UseHash);
-    }
-
     private void Update()
     {
         jumpCoolRemains -= Time.deltaTime;
+        itemCoolRemains -= Time.deltaTime;
+        if(itemCoolRemains < 0)
+        {
+            getItem = false;
+            animator.SetBool(IsDash, getItem);
+            DashEnd();
+        }
     }
 
     private void FixedUpdate()
@@ -129,6 +150,12 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isJumping = false;
+        }
+
+        if (collision.gameObject.CompareTag("Item"))
+        {
+            getItem = true;
+            Dash();
         }
 
         if (collision.gameObject.CompareTag("Enemy"))
@@ -174,6 +201,20 @@ public class Player : MonoBehaviour
             isJumping = true;               // 점프했다고 표시
         }
     }
+
+    private void Dash()
+    {
+        animator.SetBool(IsDash, getItem);
+        speedUp?.Invoke(getItem);
+        itemCoolRemains = itemCoolTime; // 쿨타임 초기화
+        Debug.Log("플레이어 Dash");
+    }
+
+    private void DashEnd()
+    {
+        Debug.Log("플레이어 DashEnd");
+    }
+
 
     void OnDie()
     {

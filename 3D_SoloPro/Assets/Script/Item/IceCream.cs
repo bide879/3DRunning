@@ -1,20 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class BigTrash : RecycleObject
+public class IceCream : RecycleObject
 {
     /// <summary>
     /// 이동 속도
     /// </summary>
-    public float scrollingSpeed = 2.5f;
+    public float scrollingSpeed = 20.0f;
 
     /// <summary>
     /// 수명
     /// </summary>
-    public float lifeTime = 10.0f;
-
+    public float lifeTime = 8.0f;
 
     private void FixedUpdate()
     {
@@ -31,4 +29,14 @@ public class BigTrash : RecycleObject
     {
         transform.Translate(0, 0, Time.fixedDeltaTime * -scrollingSpeed);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+
 }

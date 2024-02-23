@@ -8,7 +8,9 @@ using UnityEngine;
 public enum PoolObjectType
 {
     Bigtrash,
-    LightPlane
+    LightPlane,
+    IceCream
+
 }
 
 public class Factory : Singleton<Factory>
@@ -16,6 +18,7 @@ public class Factory : Singleton<Factory>
     // 오브젝트 풀들
     BigTrashPool bigtrash;
     LightPlanePool lightPlane;
+    IceCreamPool iceCream;
 
     /// <summary>
     /// 씬이 로딩 완료될 때마다 실행되는 초기화 함수
@@ -35,6 +38,10 @@ public class Factory : Singleton<Factory>
         lightPlane = GetComponentInChildren<LightPlanePool>();
         if (lightPlane != null)
             lightPlane.Initialize();
+
+        iceCream = GetComponentInChildren<IceCreamPool>();
+        if (iceCream != null)
+            iceCream.Initialize();
 
 
     }
@@ -57,24 +64,19 @@ public class Factory : Singleton<Factory>
             case PoolObjectType.LightPlane:
                 result = lightPlane.GetObject(position, euler).gameObject;
                 break;
+            case PoolObjectType.IceCream:
+                result = iceCream.GetObject(position, euler).gameObject;
+                break;
         }
 
         return result;
     }
 
-    /// <summary>
-    /// 총알 하나 가져오는 함수
-    /// </summary>
-    /// <returns>활성화된 총알</returns>
+
     public BigTrash GetBigTrash()
     {
         return bigtrash.GetObject();
     }
-    /// <summary>
-    /// 총알 하나 가져와서 특정 위치에 배치하는 함수
-    /// </summary>
-    /// <param name="position">배치될 위치</param>
-    /// <returns>활성화된 총알</returns>
     public BigTrash GetBigTrash(Vector3 position, float angle = 0.0f)
     {
         return bigtrash.GetObject(position, angle * Vector3.forward);
@@ -87,6 +89,15 @@ public class Factory : Singleton<Factory>
     public LightPlane GetLightPlane(Vector3 position, float angle = 0.0f)
     {
         return lightPlane.GetObject(position, angle * Vector3.forward);
+    }
+
+    public IceCream GetIceCream()
+    {
+        return iceCream.GetObject();
+    }
+    public IceCream GetIceCream(Vector3 position, float angle = 0.0f)
+    {
+        return iceCream.GetObject(position, angle * Vector3.forward);
     }
 
 }

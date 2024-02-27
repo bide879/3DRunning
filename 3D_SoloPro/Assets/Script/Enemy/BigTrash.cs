@@ -15,6 +15,8 @@ public class BigTrash : RecycleObject
     /// </summary>
     public float lifeTime = 10.0f;
 
+    public float pushPower = 5.0f;
+    Rigidbody rigid;
 
     private void FixedUpdate()
     {
@@ -31,4 +33,5 @@ public class BigTrash : RecycleObject
     {
         transform.Translate(0, 0, Time.fixedDeltaTime * -scrollingSpeed);
     }
+
 }

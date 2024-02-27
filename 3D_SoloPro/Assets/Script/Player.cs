@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
 
     public bool getItem = false;
 
-    public Action<bool> speedUp;
+    public Action speedUp;
 
 
     /// <summary>
@@ -97,8 +97,8 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.onSpeedUp += Dash;
-        GameManager.Instance.onSpeedUpEnd += DashEnd;
+        GameManager.Instance.onSpeedUp += OnSpeedUp;
+        GameManager.Instance.onSpeedUpEnd += OnSpeedUpEnd;
     }
 
     private void OnEnable()
@@ -131,7 +131,13 @@ public class Player : MonoBehaviour
     {
         jumpCoolRemains -= Time.deltaTime;
         itemCoolRemains -= Time.deltaTime;
-        if(itemCoolRemains < 0)
+
+        if (itemCoolRemains > 0 && getItem)
+        {
+            rigid.MovePosition(rigid.position + Time.deltaTime * moveFBSpeed * transform.forward);
+        }
+
+        if(itemCoolRemains < 0 && getItem)
         {
             getItem = false;
             animator.SetBool(IsDash, getItem);
@@ -205,13 +211,15 @@ public class Player : MonoBehaviour
     private void Dash()
     {
         animator.SetBool(IsDash, getItem);
-        speedUp?.Invoke(getItem);
+        speedUp?.Invoke();
+        GameManager.Instance.SpeedUp();
         itemCoolRemains = itemCoolTime; // 쿨타임 초기화
         Debug.Log("플레이어 Dash");
     }
 
     private void DashEnd()
     {
+        GameManager.Instance.SpeedUpEnd();
         Debug.Log("플레이어 DashEnd");
     }
 
@@ -241,4 +249,15 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnSpeedUp()
+    {
+        moveFBSpeed = 7.0f;
+        inputActions.Player.Disable();
+    }
+
+    private void OnSpeedUpEnd()
+    {
+        moveFBSpeed = 9.0f;
+        inputActions.Player.Enable();
+    }
 }

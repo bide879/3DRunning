@@ -14,12 +14,12 @@ public class SpeedUpImg : MonoBehaviour
     private void Start()
     {
         GameManager.Instance.onSpeedUp += () =>
-        {
+        { 
             canvasGroup.alpha = 0.5f;
             canvasGroup.blocksRaycasts = true;
             Debug.Log("이미지 onSpeedUp");
         };
-
+        
 
         GameManager.Instance.onSpeedUpEnd += () =>
         {
@@ -27,7 +27,7 @@ public class SpeedUpImg : MonoBehaviour
             canvasGroup.blocksRaycasts = false;
             Debug.Log("이미지 onSpeedUpEnd");
         };
-
+        
     }
 
 }

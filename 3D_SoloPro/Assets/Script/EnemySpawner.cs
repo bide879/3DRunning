@@ -23,13 +23,12 @@ public class EnemySpawner : MonoBehaviour
         while (true) // 무한 반복
         {
             yield return new WaitForSeconds(bigTrashInterval);  // interval만큼 기다린 후
-            //SpawnBigTrash();
-            SpawnIceCream();
+            SpawnBigTrash();
             bigTrashCount++;
             if (bigTrashCount > 2) 
             {
                 yield return new WaitForSeconds(lightPlaneInterval);
-                //SpawnLightPlane();
+                SpawnLightPlane();
                 bigTrashCount = 0;
                 iceCreamCount++;
                 if (iceCreamCount > 1)

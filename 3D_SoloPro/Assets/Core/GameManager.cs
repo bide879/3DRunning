@@ -36,12 +36,16 @@ public class GameManager : Singleton<GameManager>
             isSpeedUp = true;
             Debug.Log("게임매니저 SpeedUp");
         }
+        else
+        {
+           
+        }
     }
 
     public Action onSpeedUpEnd;
     public void SpeedUpEnd()
     {
-        if (isSpeedUp)
+        if(isSpeedUp)
         {
             onSpeedUpEnd?.Invoke();
             isSpeedUp = false;

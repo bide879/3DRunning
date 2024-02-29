@@ -8,15 +8,28 @@ public class BigTrash : RecycleObject
     /// <summary>
     /// 이동 속도
     /// </summary>
-    public float scrollingSpeed = 2.5f;
+    public float scrollingSpeed = 8.0f;
 
     /// <summary>
     /// 수명
     /// </summary>
     public float lifeTime = 10.0f;
 
-    public float pushPower = 5.0f;
-    Rigidbody rigid;
+
+    private void Start()
+    {
+        GameManager.Instance.onSpeedUp += () =>
+        {
+            scrollingSpeed = 16.0f;
+            lifeTime = 3.0f;
+        };
+
+        GameManager.Instance.onSpeedUpEnd += () =>
+        {
+            scrollingSpeed = 8.0f;
+            lifeTime = 10.0f;
+        };
+    }
 
     private void FixedUpdate()
     {

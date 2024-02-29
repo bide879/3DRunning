@@ -7,11 +7,11 @@ public class IceCreamCar : MonoBehaviour
     /// <summary>
     /// 이동 속도
     /// </summary>
-    public float speed = 0.2f;
+    public float speed = 2.2f;
     /// <summary>
     /// 이동 속도
     /// </summary>
-    public float speedRL = 3.0f;
+    public float speedRL = 2f;
 
     public float back = 0.0f;
 
@@ -19,8 +19,8 @@ public class IceCreamCar : MonoBehaviour
     {
         GameManager.Instance.onSpeedUp += () =>
         {
-            if (back < 40)
-            back = back + 4;
+            //if (back < 40)
+            back += 4.0f;
         };
     }
 
@@ -35,7 +35,7 @@ public class IceCreamCar : MonoBehaviour
         {
             speed = -speed;
         }
-        else if (transform.position.z > 10.0f - back)
+        else if (transform.position.z > 10.0f)
         {
             speed = -speed;
         }

@@ -5,7 +5,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Invincible : MonoBehaviour
 {
-    public float pushPower = 15.0f;
+    public float pushPower = 50.0f;
 
     bool isInvncivle = false;
     private void Start()

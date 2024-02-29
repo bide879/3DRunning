@@ -7,12 +7,25 @@ public class LightPlane : RecycleObject
     /// <summary>
     /// 이동 속도
     /// </summary>
-    public float scrollingSpeed = 2.5f;
+    public float scrollingSpeed = 20.0f;
 
     /// <summary>
     /// 수명
     /// </summary>
-    public float lifeTime = 10.0f;
+    public float lifeTime = 6.0f;
+
+    private void Start()
+    {
+        GameManager.Instance.onSpeedUp += () =>
+        {
+            scrollingSpeed = 40.0f;
+        };
+
+        GameManager.Instance.onSpeedUpEnd += () =>
+        {
+            scrollingSpeed = 20.0f;
+        };
+    }
 
     private void FixedUpdate()
     {

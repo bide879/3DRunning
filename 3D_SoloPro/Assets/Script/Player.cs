@@ -88,6 +88,7 @@ public class Player : MonoBehaviour
     /// </summary>
     float itemCoolRemains = -1.0f;
 
+
     private void Awake()
     {
         inputActions = new();
@@ -164,9 +165,14 @@ public class Player : MonoBehaviour
             Dash();
         }
 
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy") && getItem != true)
         {
             OnDie();
+        }
+
+        if (collision.gameObject.CompareTag("Boss"))
+        {
+            GameManager.Instance.GameClear();
         }
 
     }
@@ -245,7 +251,8 @@ public class Player : MonoBehaviour
             // 죽었다고 신호보내기(onDie 델리게이트 실행)
             onDie?.Invoke();
 
-            isAlive = false;
+            StartCoroutine(GameOverCoroutine());
+           
         }
     }
 
@@ -259,5 +266,12 @@ public class Player : MonoBehaviour
     {
         moveFBSpeed = 9.0f;
         inputActions.Player.Enable();
+    }
+
+
+    IEnumerator GameOverCoroutine()
+    {
+        yield return new WaitForSeconds(2.0f);
+        GameManager.Instance.GameOver();
     }
 }

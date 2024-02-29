@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -51,6 +52,17 @@ public class GameManager : Singleton<GameManager>
             isSpeedUp = false;
             Debug.Log("게임매니저 SpeedUpEnd");
         }
+    }
+
+
+        public void GameOver()
+    {
+        SceneManager.LoadScene("GameOver");
+    }
+
+    public void GameClear()
+    {
+        SceneManager.LoadScene("GameClear");
     }
 
 }
